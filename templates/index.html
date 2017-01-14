@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<title>Flask-IRC</title>
+		
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
+		{% if exists == 1 %}
+			<script type="text/javascript">alert("User is exists, please choose another username.");</script>>
+		{% endif %}
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm6 col-md-4 col-md-offset-4">
+					<h1 class="text-center login-title">Enter Chat Server</h1>
+					<div class="account-wall">
+						<img class="profile-img" src="{{url_for('static', filename='img/photo.jpg')}}">
+						<form class="form-signin" id="login">
+							<input type="text" name="username" id="username" placeholder="Username" class="form-control" required autofocus>
+							<input type="submit" value="Sign In" class="btn btn-lg btn-primary btn-block">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="{{url_for('static', filename='js/jquery.3-1-1.min.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('form#login').submit(function(event){
+					var url_check = "{{url_for('index')}}check/" + $('#username').val();
+					$.get(url_check, function(data){
+						if (data != 0) {
+							alert('Please use another username');
+						} else {
+							window.location.href = "{{url_for('index')}}" + $('#username').val();
+						}
+					});
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>
